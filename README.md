@@ -35,7 +35,7 @@ Aria2 本身是个只有命令行的下载引擎，想用得顺手得自己拼�
 
 ### 方式一：下载现成的压缩包
 
-到 [Releases](../../releases) 或直接下载 [`dist/Aria2下载器-绿色版.zip`](dist/Aria2下载器-绿色版.zip)：
+到 [Releases](../../releases) 下载 **`aria2-portable-1.0.0.zip`**（与仓库内 [`dist/Aria2下载器-绿色版.zip`](dist/Aria2下载器-绿色版.zip) 是同一份内容，ASCII 文件名兼容性更好）：
 
 1. 解压到 `D:\Aria2` 之类的位置（**不要放 `C:\Program Files`**，权限不足写不进配置）
 2. 双击 `install.bat`
