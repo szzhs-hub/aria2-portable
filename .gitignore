@@ -1,0 +1,17 @@
+# 安装后生成的本地文件（每台机器不同，不进仓库）
+app/conf/aria2.conf
+app/conf/aria2.session
+app/conf/aria2.log
+app/conf/panel-url.txt
+app/panel.bat
+app/Aria2-Explorer-配置.json
+
+# 下载目录内容，但保留空目录
+app/Downloads/*
+!app/Downloads/.gitkeep
+
+# 系统杂项
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp

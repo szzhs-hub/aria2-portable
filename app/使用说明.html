@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aria2 便携版 · 使用说明</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1c2024; --muted:#5d6772;
+    --line:#e3e7ec; --accent:#2563eb; --accent-soft:#eef3fe;
+    --code-bg:#f2f4f7; --warn:#b45309; --warn-soft:#fef6e7;
+    --ok:#0f7b53; --ok-soft:#eaf7f1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14171a; --card:#1b1f23; --ink:#e6e9ec; --muted:#9aa5b1;
+      --line:#2b3138; --accent:#7aa2f7; --accent-soft:#1e2733;
+      --code-bg:#22272d; --warn:#e0a35a; --warn-soft:#2a2418;
+      --ok:#5ec99b; --ok-soft:#16261f;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:40px 20px 80px; background:var(--bg); color:var(--ink);
+    font:16px/1.75 -apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+  header{margin-bottom:32px}
+  .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-size:34px;line-height:1.3;margin:8px 0 12px;letter-spacing:-.01em}
+  .lede{color:var(--muted);margin:0;font-size:17px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin:18px 0}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  h3{font-size:16px;margin:26px 0 8px}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:6px 0}
+  code{background:var(--code-bg);border-radius:5px;padding:2px 6px;font-size:.88em;
+       font-family:ui-monospace,"Cascadia Mono",Consolas,monospace}
+  pre{background:var(--code-bg);border-radius:10px;padding:16px 18px;overflow:auto;font-size:13px;line-height:1.65}
+  pre code{background:none;padding:0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.03em}
+  .steps{counter-reset:s;list-style:none;padding:0}
+  .steps>li{counter-increment:s;position:relative;padding-left:44px;margin:18px 0}
+  .steps>li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;
+    border-radius:50%;background:var(--accent);color:#fff;font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center}
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+  .warn{border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+  .ok{border-left:3px solid var(--ok);background:var(--ok-soft);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+  .note p,.warn p,.ok p{margin:4px 0}
+  details{border:1px solid var(--line);border-radius:10px;padding:12px 18px;margin:10px 0;background:var(--card)}
+  details[open]{padding-bottom:16px}
+  summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  summary::marker{color:var(--accent)}
+  .qa{color:var(--muted);margin:10px 0 0}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  figure{margin:22px 0}
+  figure img{width:100%;border:1px solid var(--line);border-radius:12px;display:block}
+  figcaption{color:var(--muted);font-size:13px;margin-top:8px;text-align:center}
+  .tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:8px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Aria2 便携版</div>
+  <h1>使用说明</h1>
+  <p class="lede">一套免安装的 Windows 下载器：aria2 后台引擎 + AriaNg 网页面板 + 浏览器扩展接管。<br>
+  用来替代 IDM 或浏览器自带下载，支持多线程加速、断点续传、直链 / 磁力 / 种子。</p>
+</header>
+
+<div class="card">
+  <ul style="margin:0">
+    <li><strong>绿色版</strong>：解压即用，不写注册表（只创建桌面快捷方式）</li>
+    <li><strong>可搬走</strong>：整个文件夹随便移动、复制、删除</li>
+    <li><strong>本地优先</strong>：只监听 <code>127.0.0.1</code>，不上传任何数据</li>
+  </ul>
+</div>
+
+<h2>一、安装（三步）</h2>
+
+<figure>
+  <img src="面板预览.png" alt="AriaNg 面板截图，左下角显示已连接">
+  <figcaption>装好之后的样子：AriaNg 面板，左下角「已连接」表示密钥正确、引擎在跑</figcaption>
+</figure>
+
+<ol class="steps">
+  <li>
+    <strong>解压</strong>到任意目录，例如 <code>D:\Aria2</code>。
+    <div class="warn">
+      <p>不要放在 <code>C:\Program Files</code>——权限不足，安装脚本写不进配置文件。路径里也尽量不要有空格。</p>
+    </div>
+  </li>
+  <li>
+    <strong>双击 <code>install.bat</code></strong>。它会：
+    <ul>
+      <li>生成一份随机 RPC 密钥</li>
+      <li>按当前目录生成 <code>conf\aria2.conf</code>、<code>panel.bat</code>、<code>conf\panel-url.txt</code></li>
+      <li>生成 <code>Aria2-Explorer-配置.json</code>（给浏览器扩展导入用）</li>
+      <li>在桌面创建「Aria2 下载器」「Aria2 面板」两个快捷方式</li>
+    </ul>
+  </li>
+  <li>
+    <strong>装浏览器扩展并导入配置</strong>：
+    <ul>
+      <li>Edge：打开 <code>edge://extensions</code>，搜并安装 <strong>Aria2 Explorer</strong>（作者 alexhua）<br>
+        商店直链：<code>microsoftedge.microsoft.com/addons/detail/ngojgbdekanmijaphecgpmfoegoanffi</code></li>
+      <li>Chrome：应用商店搜 <strong>Aria2 Explorer</strong></li>
+      <li>安装后打开扩展「选项」→ 找 <strong>导入/导出（Import / Export）</strong> → 导入本目录下的
+        <code>Aria2-Explorer-配置.json</code></li>
+    </ul>
+    <div class="ok"><p>导入后 RPC 地址和密钥就都配好了，不用手填。</p></div>
+  </li>
+</ol>
+
+<h2>二、日常使用</h2>
+
+<table>
+  <tr><th>想做的事</th><th>怎么做</th></tr>
+  <tr><td>启动</td><td>双击桌面「Aria2 下载器」（后台启动引擎 + 打开面板）</td></tr>
+  <tr><td>只开面板</td><td>双击桌面「Aria2 面板」</td></tr>
+  <tr><td>下载</td><td>直接在网页上点下载链接，扩展会把任务交给 aria2</td></tr>
+  <tr><td>临时不接管</td><td>按 <code>Alt + A</code> 关闭自动拦截，再按一次恢复</td></tr>
+  <tr><td>看进度</td><td>点浏览器工具栏的 <strong>A2E</strong> 图标 → 打开面板</td></tr>
+  <tr><td>停止引擎</td><td>双击 <code>stop.bat</code></td></tr>
+  <tr><td>看日志</td><td>双击 <code>view-log.bat</code>（实时滚动）</td></tr>
+</table>
+
+<p>下载完成的文件默认在 <strong><code>安装目录\Downloads</code></strong>。</p>
+
+<h3>为什么浏览器里看不到下载条？</h3>
+<div class="note">
+  <p>这是接管式下载的正常表现：扩展拦下链接后直接交给后台 aria2，<strong>浏览器自己并没有发起下载</strong>，
+  所以 Edge / Chrome 的下载气泡、<code>edge://downloads</code> 里不会有记录。</p>
+  <p>想看任务请用面板或扩展图标；如果确实需要浏览器原生下载（例如小文件想留记录），按 <code>Alt + A</code> 临时关掉拦截。</p>
+</div>
+
+<h2>三、目录结构</h2>
+
+<pre><code>Aria2下载器\
+├─ install.bat                安装（首次运行一次）
+├─ start.bat                  启动引擎并打开面板（日常用这个）
+├─ panel.bat                  只打开面板（安装后生成）
+├─ stop.bat                   停止引擎
+├─ view-log.bat               查看实时日志
+├─ autostart-on.bat           设置开机后台自启
+├─ autostart-off.bat          取消开机自启
+├─ uninstall.bat              清理自启项与快捷方式
+├─ daemon.vbs                 无窗口启动 aria2（被其它脚本调用）
+├─ aria2c.exe                 aria2 引擎 1.37.0
+├─ aria-ng\index.html         AriaNg 面板（离线单文件）
+├─ conf\
+│  ├─ aria2.conf              运行配置（安装时生成，可自己改）
+│  ├─ aria2.conf.template     配置模板
+│  ├─ aria2.session           任务队列（未完成的任务存在这里）
+│  ├─ aria2.log               运行日志
+│  └─ panel-url.txt           面板地址（含密钥）
+├─ Downloads\                 下载目录
+├─ Aria2-Explorer-配置.json   浏览器扩展的导入文件
+├─ 使用说明.html / .md        本文档
+└─ LICENSES\                  开源许可</code></pre>
+
+<h2>四、常见问题</h2>
+
+<details>
+  <summary>点了链接没反应？</summary>
+  <p class="qa">先看 <code>Downloads</code> 目录里文件是不是已经在长大——多数时候它正在后台下载，只是浏览器没有提示。
+  再双击 <code>view-log.bat</code>，能看到 <code>Download complete: ...</code> 就说明一切正常。</p>
+</details>
+
+<details>
+  <summary>面板打开显示「认证失败」？</summary>
+  <p class="qa">说明密钥不匹配。重新运行一次 <code>install.bat</code>（会沿用原密钥并重写面板地址），
+  或直接双击 <code>panel.bat</code>，而不是手动打开 <code>aria-ng\index.html</code>。</p>
+  <p class="qa">手动打开时需要在设置里填：协议 <code>HTTP</code>、主机 <code>127.0.0.1</code>、端口 <code>6800</code>、
+  密钥见 <code>conf\aria2.conf</code> 里的 <code>rpc-secret=</code>。</p>
+</details>
+
+<details>
+  <summary>下载立刻失败，日志里是 <code>errorCode=18</code>？</summary>
+  <p class="qa">下载目录路径不合法，最常见的原因是<strong>路径首尾带了引号</strong>（从资源管理器「复制为路径」粘进来的）。
+  在扩展设置里把「下载目录」改成不带引号的路径，或直接留空使用默认目录。</p>
+</details>
+
+<details>
+  <summary>速度不如预期？</summary>
+  <ul class="qa">
+    <li>单个服务器的带宽和限速是主要瓶颈，GitHub 之类的站点本来就慢</li>
+    <li>可在 <code>conf\aria2.conf</code> 调大 <code>split</code>、<code>max-connection-per-server</code>（默认各 16）</li>
+    <li>改完先 <code>stop.bat</code> 再 <code>start.bat</code></li>
+  </ul>
+</details>
+
+<details>
+  <summary>想换下载目录？</summary>
+  <p class="qa">改 <code>conf\aria2.conf</code> 里的 <code>dir=</code> 那一行，然后重启。注意路径不要加引号。</p>
+</details>
+
+<details>
+  <summary>换端口？</summary>
+  <p class="qa">改 <code>conf\aria2.conf</code> 里的 <code>rpc-listen-port=</code>，然后重新运行一次 <code>install.bat</code>——
+  它会沿用你改过的端口和原密钥，重写面板地址。浏览器扩展里的 RPC 地址也要同步改成新端口。</p>
+</details>
+
+<details>
+  <summary>开机自启？</summary>
+  <p class="qa">双击 <code>autostart-on.bat</code>（只是往启动文件夹放一个快捷方式，不写注册表）；取消用 <code>autostart-off.bat</code>。</p>
+</details>
+
+<details>
+  <summary>端口 6800 被占用？</summary>
+  <p class="qa"><code>conf\aria2.log</code> 里会有 <code>Failed to bind</code> 之类的报错。换端口见上一条。</p>
+</details>
+
+<details>
+  <summary>怎么彻底卸载？</summary>
+  <p class="qa">双击 <code>uninstall.bat</code> 清理自启项和快捷方式，然后直接删掉整个文件夹。
+  已下载的文件在 <code>Downloads</code> 里，删之前自己确认。</p>
+</details>
+
+<details>
+  <summary>杀毒软件报毒？</summary>
+  <p class="qa"><code>aria2c.exe</code> 是 aria2 官方构建（GPLv2），部分杀软对「带 RPC 服务的下载器」比较敏感，属误报。
+  介意的话可以自行到 <code>github.com/aria2/aria2/releases</code> 下载官方版本替换，配置文件不用动。</p>
+</details>
+
+<h2>五、安全说明</h2>
+<ul>
+  <li>RPC 只监听 <code>127.0.0.1</code>（<code>rpc-listen-all=false</code>），局域网内其它机器连不上</li>
+  <li>每次安装都会生成新的随机密钥，写在 <code>conf\aria2.conf</code> 的 <code>rpc-secret=</code></li>
+  <li>把压缩包分享给别人时，对方运行 <code>install.bat</code> 会生成<strong>他自己的</strong>密钥，互不影响</li>
+  <li>不要把自己已安装好的 <code>conf\aria2.conf</code> 发给别人（里面是你的密钥，虽然只对本机有效）</li>
+</ul>
+
+<div class="card">
+  <h3 style="margin-top:0">给分享者 <span class="tag">转发前看一眼</span></h3>
+  <p>直接把这个文件夹（<strong>未运行过 install.bat 的状态</strong>）压缩成 zip 发给对方即可。
+  对方解压后双击 <code>install.bat</code>，会生成属于他自己的密钥和路径，不会和你冲突。</p>
+  <p style="margin-bottom:0;color:var(--muted)">如果已经安装过再去分享，记得先删掉 <code>conf\aria2.conf</code>、<code>conf\panel-url.txt</code>、
+  <code>conf\aria2.session</code>、<code>panel.bat</code>、<code>Aria2-Explorer-配置.json</code> 这几个生成物。</p>
+</div>
+
+<h2>六、许可与致谢</h2>
+<ul>
+  <li><strong>aria2</strong> — GPLv2，<code>aria2.github.io</code>，完整许可见 <code>LICENSES\aria2-COPYING.txt</code></li>
+  <li><strong>AriaNg</strong> — MIT，<code>github.com/mayswind/AriaNg</code>，见 <code>LICENSES\AriaNg-LICENSE.txt</code></li>
+  <li><strong>Aria2 Explorer</strong> — MIT，<code>github.com/alexhua/Aria2-Explorer</code></li>
+</ul>
+
+<footer>
+  本说明书可自由转发、修改。 · Aria2 便携版
+</footer>
+
+</div>
+</body>
+</html>

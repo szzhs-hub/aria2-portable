@@ -1,0 +1,47 @@
+## aria2 配置文件（便携版）
+## 本文件由 install.bat 自动生成，路径与密钥已按本机实际情况填好。
+## 想改参数：改这里，保存后结束 aria2c.exe 再双击 start.bat 生效。
+
+# ---------- 下载目录 ----------
+dir=@BASEDIR@\Downloads
+file-allocation=none
+auto-file-renaming=true
+allow-overwrite=false
+
+# ---------- 多线程加速 ----------
+split=16
+max-connection-per-server=16
+min-split-size=1M
+max-concurrent-downloads=5
+max-overall-download-limit=0
+
+# ---------- 断点续传与重试 ----------
+continue=true
+max-tries=5
+retry-wait=3
+timeout=30
+connect-timeout=20
+
+# ---------- 磁盘缓存 ----------
+disk-cache=64M
+
+# ---------- RPC（浏览器扩展与面板靠它通信）----------
+enable-rpc=true
+rpc-listen-all=false
+rpc-listen-port=@PORT@
+rpc-secret=@SECRET@
+rpc-allow-origin-all=true
+rpc-max-request-size=16M
+
+# ---------- 队列持久化（关掉再开，没下完的还在）----------
+# 注意：不要在这里写 input-file=，否则 aria2 会忽略命令行给的链接。
+save-session=@BASEDIR@\conf\aria2.session
+save-session-interval=30
+force-save=true
+
+# ---------- 伪装浏览器 UA ----------
+user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+
+# ---------- 日志 ----------
+log=@BASEDIR@\conf\aria2.log
+log-level=notice
