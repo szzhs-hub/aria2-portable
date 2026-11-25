@@ -35,7 +35,7 @@ Aria2 本身是个只有命令行的下载引擎，想用得顺手得自己拼�
 
 ### 方式一：下载现成的压缩包
 
-到 [Releases](../../releases) 下载 **`aria2-portable-1.0.0.zip`**（与仓库内 [`dist/Aria2下载器-绿色版.zip`](dist/Aria2下载器-绿色版.zip) 是同一份内容，ASCII 文件名兼容性更好）：
+到 [Releases](../../releases) 下载 **`aria2-portable-1.0.1.zip`**（与仓库内 [`dist/Aria2下载器-绿色版.zip`](dist/Aria2下载器-绿色版.zip) 是同一份内容，ASCII 文件名兼容性更好）：
 
 1. 解压到 `D:\Aria2` 之类的位置（**不要放 `C:\Program Files`**，权限不足写不进配置）
 2. 双击 `install.bat`
@@ -99,6 +99,7 @@ app/Aria2-Explorer-配置.json  扩展导入文件
 | 浏览器里看不到下载条 | 接管式下载的固有表现，浏览器没有发起下载；用面板看进度，或 `Alt+A` 临时关拦截 |
 | 面板显示「认证失败」 | 密钥不匹配，重跑 `install.bat` 或用 `panel.bat` 打开 |
 | 日志里 `errorCode=18` | 下载目录首尾带了引号，去掉引号或留空用默认目录 |
+| 所有下载都失败：`errorCode=1` + `unreachable network` | 机器有 IPv6 地址但没有 IPv6 出口。配置里已默认 `disable-ipv6=true`，老配置补上这一行再重启 |
 | 想换下载目录 / 端口 | 改 `app/conf/aria2.conf`，重跑 `install.bat` 会沿用你的改动 |
 
 完整排错见 [`app/使用说明.html`](app/使用说明.html)。

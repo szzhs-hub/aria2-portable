@@ -39,6 +39,11 @@ save-session=@BASEDIR@\conf\aria2.session
 save-session-interval=30
 force-save=true
 
+# ---------- 关闭 IPv6 ----------
+# 有些网络有 IPv6 地址却没有 IPv6 出口（装过 VPN / 虚拟网卡常见），
+# aria2 会先试 IPv6，立刻报 "unreachable network"，所有下载直接失败。
+disable-ipv6=true
+
 # ---------- 伪装浏览器 UA ----------
 user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
 
